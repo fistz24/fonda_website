@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 import { getFullResponse } from "@/lib/matcher";
 
 const SUGGESTED_PROMPTS = [
+  "Tell me about yourself.",
   "Why is your background so diverse?",
-  "Show your best projects.",
+  "What are you most proud of?",
   "Tell me about Chime.",
-  "Why consulting?",
-  "What industries have you worked in?",
+  "What kind of role are you looking for?",
   "What motivates you?",
 ];
 
