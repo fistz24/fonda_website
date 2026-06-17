@@ -1,20 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/thinking/finance/page": "app/thinking/finance/page.js",
-  "/thinking/operations/page": "app/thinking/operations/page.js",
-  "/experience/vc/page": "app/experience/vc/page.js",
   "/why/page": "app/why/page.js",
-  "/projects/page": "app/projects/page.js",
-  "/thinking/strategy/page": "app/thinking/strategy/page.js",
-  "/thinking/product/page": "app/thinking/product/page.js",
-  "/thinking/growth/page": "app/thinking/growth/page.js",
-  "/thinking/analytics/page": "app/thinking/analytics/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/experience/consulting/page": "app/experience/consulting/page.js",
-  "/experience/consumer/page": "app/experience/consumer/page.js",
-  "/experience/mba/page": "app/experience/mba/page.js",
-  "/experience/chime/page": "app/experience/chime/page.js",
-  "/experience/rena/page": "app/experience/rena/page.js",
-  "/articles/page": "app/articles/page.js",
-  "/dots/page": "app/dots/page.js"
+  "/page": "app/page.js"
 }
