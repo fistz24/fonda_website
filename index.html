@@ -720,7 +720,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 function showPage(id){document.querySelectorAll(".page").forEach(function(pg){pg.classList.remove("active");});var el=document.getElementById("page-"+id);if(el)el.classList.add("active");document.querySelectorAll(".nav-links a").forEach(function(a){a.classList.remove("active");});var lnk=document.getElementById("nav-"+id);if(lnk)lnk.classList.add("active");window.scrollTo(0,0);}
 window.showPage=showPage;
 var ni=document.getElementById("nav-chat");if(ni)ni.classList.add("active");
-var twLines=["I went from Venture Capital to founding 2 companies to an MBA", "I turned 2 food brands into GTM success stories in Indonesia", "I grew a brand's sales by 200% in 3 months during a pandemic with zero playbook", "I speak the language of data, strategy, and Mandarin", "I went from analyzing startups to building one from scratch"];
+var twLines=["I went from Venture Capital to founding 2 companies to an MBA", "I turned 2 food brands into GTM success stories in Indonesia", "I grew a brand's sales by 200% in 3 months during a pandemic with zero playbook", "I translate data into strategy and strategy into execution", "I went from analyzing startups to building one from scratch"];
 var twI=0,twC=0,twDel=false;
 var twEl=document.getElementById("tw");
 function twLoop(){if(!twEl)return;var cur=twLines[twI];if(!twDel){twC++;twEl.textContent=cur.slice(0,twC);if(twC===cur.length){twDel=true;setTimeout(twLoop,2600);return;}setTimeout(twLoop,40);}else{twC--;twEl.textContent=cur.slice(0,twC);if(twC===0){twDel=false;twI=(twI+1)%twLines.length;setTimeout(twLoop,350);return;}setTimeout(twLoop,20);}}
