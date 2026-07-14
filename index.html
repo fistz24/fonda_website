@@ -69,6 +69,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .proj-desc{font-size:12px;color:var(--text-mid);line-height:1.6;flex:1}
 /* MODAL */
 .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:30px 20px;overflow-y:auto}
+/* LIGHTBOX */
+.lightbox-trigger{cursor:zoom-in;transition:opacity .15s ease}
+.lightbox-trigger:hover{opacity:.88}
+.lightbox-ov{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:400;display:none;align-items:center;justify-content:center;padding:40px 20px}
+.lightbox-ov.open{display:flex}
+.lightbox-content{max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);cursor:zoom-out}
+.lightbox-close{position:fixed;top:20px;right:26px;width:40px;height:40px;background:rgba(255,255,255,.12);border:none;border-radius:50%;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.lightbox-close:hover{background:rgba(255,255,255,.22)}
 .modal-ov.open{display:flex}
 .modal{background:#fff;border-radius:20px;width:100%;max-width:980px;position:relative;display:flex;flex-direction:column;margin:auto}
 .modal-hdr{padding:30px 36px 22px;position:relative;border-top-left-radius:20px;border-top-right-radius:20px;flex-shrink:0}
@@ -745,8 +753,22 @@ window.openModal=openModal;window.closeModal=closeModal;window.closeBg=closeBg;
 function scrollSec(sId,cId){var s=document.getElementById(sId);var c=document.getElementById(cId);if(s&&c)c.scrollTop=s.offsetTop-20;}
 window.scrollSec=scrollSec;
 document.querySelectorAll(".modal-scroll").forEach(function(cont){cont.addEventListener("scroll",function(){var secs=this.querySelectorAll(".msec");var inner=this.closest(".modal-inner");if(!inner)return;var toc=inner.querySelector(".modal-toc");if(!toc)return;var links=toc.querySelectorAll("a");var cur="";var st=this.scrollTop;secs.forEach(function(s){if(s.offsetTop-st<=80)cur=s.id;});links.forEach(function(a){a.classList.remove("toc-on");var oc=a.getAttribute("onclick")||"";if(cur&&oc.indexOf(cur)>-1)a.classList.add("toc-on");});});});
-document.addEventListener("keydown",function(e){if(e.key==="Escape"){document.querySelectorAll(".modal-ov.open").forEach(function(m){m.classList.remove("open");document.body.style.overflow="";});}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){document.querySelectorAll(".modal-ov.open").forEach(function(m){m.classList.remove("open");document.body.style.overflow="";});closeLightbox();}});
+function openLightbox(src,alt){var ov=document.getElementById("lightboxOv");var im=document.getElementById("lightboxImg");if(!ov||!im)return;im.src=src;im.alt=alt||"";ov.classList.add("open");document.body.style.overflow="hidden";}
+function closeLightbox(){var ov=document.getElementById("lightboxOv");if(ov)ov.classList.remove("open");if(!document.querySelector(".modal-ov.open"))document.body.style.overflow="";}
+window.openLightbox=openLightbox;window.closeLightbox=closeLightbox;
+document.querySelectorAll("img").forEach(function(img){
+  if(img.id==="lightboxImg")return;
+  if(img.closest(".proj-thumb"))return;
+  if(img.closest(".vid-thumb"))return;
+  img.classList.add("lightbox-trigger");
+  img.addEventListener("click",function(e){e.stopPropagation();openLightbox(img.getAttribute("src"),img.getAttribute("alt"));});
+});
 })();
 </script>
+<div class="lightbox-ov" id="lightboxOv" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img class="lightbox-content" id="lightboxImg" src="" alt="">
+</div>
 </body>
 </html>
