@@ -313,6 +313,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <a onclick="scrollSec('cb-evals','mc-cb')">Model Evals</a>
     <a onclick="scrollSec('cb-harness','mc-cb')">Eval Harness</a>
     <a onclick="scrollSec('cb-honest','mc-cb')">What This Is, Honestly</a>
+    <a onclick="scrollSec('cb-diff','mc-cb')">How This Differs</a>
     <a onclick="scrollSec('cb-gtm','mc-cb')">Go-to-Market</a>
     <a onclick="scrollSec('cb-lifecycle','mc-cb')">Lifecycle Marketing</a>
     <a onclick="scrollSec('cb-roadmap','mc-cb')">Roadmap</a>
@@ -743,13 +744,128 @@ loadPersona('michelle');
 
     <div class="msec" id="cb-honest"><div class="msec-title">What This Is, Honestly</div><p class="mtext">CreditBridge doesn't underwrite a mortgage. No scorecard should, a home loan needs full KYC, appraisal, and years of formal ability-to-repay evidence, and claiming otherwise would undermine trust in the whole approach. What it actually does is what Kredivo, Akulaku, and JULO already prove works in Indonesia: use alternative data to qualify a thin-file worker for a small first product, a microloan or installment limit, and report that repayment to Indonesia's formal credit registry. Once that formal history exists, a mortgage lender can underwrite the person the ordinary way, because the invisible-to-banks problem, not the mortgage-underwriting problem, is the one CreditBridge was built to solve.</p></div>
 
-    <div class="msec" id="cb-gtm"><div class="msec-title">Go-to-Market</div><p class="mtext">The GTM motion runs through the platform, not around it &mdash; the same distribution logic that made Bank Jago's Gojek partnership work.</p>
-    <div class="gtm-phases">
-     <div class="gtm-phase"><div class="gtm-phase-num">Phase 1</div><div class="gtm-phase-name">Platform Partnership</div><div class="gtm-phase-desc">Secure a data-sharing agreement with one gig platform as design partner</div></div>
-     <div class="gtm-phase"><div class="gtm-phase-num">Phase 2</div><div class="gtm-phase-name">Consent Onboarding</div><div class="gtm-phase-desc">In-app consent flow for workers to opt into verified data sharing</div></div>
-     <div class="gtm-phase"><div class="gtm-phase-num">Phase 3</div><div class="gtm-phase-name">Pilot City Launch</div><div class="gtm-phase-desc">Single city, single worker segment, to validate calibration on real data</div></div>
-     <div class="gtm-phase"><div class="gtm-phase-num">Phase 4</div><div class="gtm-phase-name">Driver-Community Referral</div><div class="gtm-phase-desc">Word-of-mouth through existing driver groups, the trust layer money can't buy</div></div>
-     <div class="gtm-phase"><div class="gtm-phase-num">Phase 5</div><div class="gtm-phase-name">Multi-City Scale</div><div class="gtm-phase-desc">Expand once repayment data confirms calibration holds outside the pilot</div></div>
+    <div class="msec" id="cb-diff"><div class="msec-title">How This Differs from Bank Jago and Kredivo</div><p class="mtext">The core mechanism, alternative data leading to a score leading to a small credit product leading to bureau reporting, is not new. Bank Jago, Kredivo, Akulaku, and JULO already prove this category works in Indonesia. What differs is not the mechanism, it's where CreditBridge sits on two dimensions that actually matter.</p>
+
+<svg viewBox="0 0 640 420" style="width:100%;max-width:640px;height:auto;margin:16px 0" xmlns="http://www.w3.org/2000/svg">
+  <line x1="80" y1="200" x2="560" y2="200" stroke="#e4dcd3" stroke-width="1"/>
+  <line x1="320" y1="40" x2="320" y2="360" stroke="#e4dcd3" stroke-width="1"/>
+
+  <text x="80" y="30" font-family="Inter,sans-serif" font-size="11" fill="#9a9088">EXPLAINABLE DECISION</text>
+  <text x="480" y="382" font-family="Inter,sans-serif" font-size="11" fill="#9a9088" text-anchor="end">GRADUATION-INCENTIVIZED</text>
+  <text x="80" y="382" font-family="Inter,sans-serif" font-size="11" fill="#9a9088">RETENTION-INCENTIVIZED</text>
+  <text x="480" y="30" font-family="Inter,sans-serif" font-size="11" fill="#9a9088" text-anchor="end">BLACK-BOX DECISION</text>
+
+  <circle cx="165" cy="300" r="7" fill="#c9b9d9"/>
+  <text x="180" y="298" font-family="Inter,sans-serif" font-size="12" fill="#3a332e">Kredivo, Akulaku</text>
+  <text x="180" y="313" font-family="Inter,sans-serif" font-size="10.5" fill="#9a9088">BNPL, repeat-use model</text>
+
+  <circle cx="215" cy="270" r="7" fill="#c9b9d9"/>
+  <text x="230" y="268" font-family="Inter,sans-serif" font-size="12" fill="#3a332e">JULO</text>
+  <text x="230" y="283" font-family="Inter,sans-serif" font-size="10.5" fill="#9a9088">ML-scored, cash loans</text>
+
+  <circle cx="390" cy="250" r="7" fill="#f5a898"/>
+  <text x="405" y="248" font-family="Inter,sans-serif" font-size="12" fill="#3a332e">Bank Jago</text>
+  <text x="405" y="263" font-family="Inter,sans-serif" font-size="10.5" fill="#9a9088">Full bank, broad data</text>
+
+  <circle cx="475" cy="85" r="9" fill="#e8705a"/>
+  <text x="493" y="83" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#e8705a">CreditBridge</text>
+  <text x="493" y="99" font-family="Inter,sans-serif" font-size="10.5" fill="#9a9088">Explainable, built to exit</text>
+</svg>
+
+<div style="margin:26px 0 8px;font-family:'Lora',serif;font-weight:600;font-size:16px;color:#292524">What each position actually means</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0 24px">
+
+  <div style="border:1px solid #e4dcd3;border-radius:12px;padding:16px">
+    <div style="font-size:12.5px;font-weight:600;color:#292524;margin-bottom:10px">Explainable, not a black box</div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="flex:1;text-align:center;padding:10px 6px;background:#f5f5f4;border-radius:8px">
+        <div style="font-size:10.5px;color:#9a9088;margin-bottom:4px">Typical lender</div>
+        <div style="font-size:20px;color:#b23b2e">&#10005;</div>
+        <div style="font-size:10px;color:#78716c;margin-top:2px">Declined, no reason</div>
+      </div>
+      <div style="font-size:16px;color:#c9b9d9">&#8594;</div>
+      <div style="flex:1.3;text-align:center;padding:10px 10px;background:#fdf0ed;border-radius:8px">
+        <div style="font-size:10.5px;color:#e8705a;margin-bottom:4px;font-weight:600">CreditBridge</div>
+        <div style="font-size:10px;color:#57534e;line-height:1.6">Consistency +137<br>Repayment +110<br>Volume +110</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="border:1px solid #e4dcd3;border-radius:12px;padding:16px">
+    <div style="font-size:12.5px;font-weight:600;color:#292524;margin-bottom:10px">Built to graduate you, not retain you</div>
+    <div style="font-size:11px;color:#78716c;margin-bottom:6px">Typical BNPL: <span style="color:#b23b2e">borrow &#8594; repay &#8594; borrow again &#8594; repeats</span></div>
+    <div style="font-size:11px;color:#78716c">CreditBridge: <span style="color:#3d7a4f">borrow &#8594; repay &#8594; bureau report &#8594; graduate</span></div>
+  </div>
+
+  <div style="border:1px solid #e4dcd3;border-radius:12px;padding:16px">
+    <div style="font-size:12.5px;font-weight:600;color:#292524;margin-bottom:10px">Narrow, gig-specific signal set</div>
+    <div style="display:flex;gap:10px">
+      <div style="flex:1;text-align:center;padding:8px 4px;background:#f5f5f4;border-radius:8px">
+        <div style="font-size:10.5px;color:#9a9088;margin-bottom:4px">Typical scoring</div>
+        <div style="font-size:10px;color:#78716c;line-height:1.6">Smartphone data<br>E-commerce history<br>Call logs, social data</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:8px 4px;background:#fdf0ed;border-radius:8px">
+        <div style="font-size:10.5px;color:#e8705a;margin-bottom:4px;font-weight:600">CreditBridge</div>
+        <div style="font-size:10px;color:#57534e;line-height:1.6">Tenure, volume<br>Rating, consistency<br>Repayment history</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="border:1px solid #e4dcd3;border-radius:12px;padding:16px">
+    <div style="font-size:12.5px;font-weight:600;color:#292524;margin-bottom:10px">Publishes its own evaluation</div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="flex:1;text-align:center;padding:10px 6px;background:#f5f5f4;border-radius:8px">
+        <div style="font-size:18px">&#128274;</div>
+        <div style="font-size:10px;color:#78716c;margin-top:2px">Proprietary, not disclosed</div>
+      </div>
+      <div style="font-size:16px;color:#c9b9d9">&#8594;</div>
+      <div style="flex:1;text-align:center;padding:10px 6px;background:#fdf0ed;border-radius:8px">
+        <div style="font-size:18px">&#128196;</div>
+        <div style="font-size:10px;color:#e8705a;margin-top:2px;font-weight:600">Calibration and fairness, public</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#e8705a;margin:8px 0 6px">Use Case</div>
+<div style="margin:0 0 10px;font-family:'Lora',serif;font-weight:600;font-size:16px;color:#292524">One applicant, two systems</div>
+<p class="mtext" style="font-size:13px">The following is a use case of how the same applicant is treated by a typical alternative lender versus CreditBridge. Daphne is the food delivery courier from the prototype above, six months on the platform, 45% earnings consistency, a 4.2 rating. Plug her exact numbers into the calculator above and this is what actually comes out, not an invented example.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 20px">
+  <div style="border:1px solid #e4dcd3;border-radius:12px;padding:16px">
+    <div style="font-size:12px;font-weight:600;color:#78716c;margin-bottom:10px">WITH A TYPICAL ALTERNATIVE LENDER</div>
+    <ol style="margin:0;padding-left:18px;font-size:12.5px;color:#3a332e;line-height:2">
+      <li>Smartphone and e-commerce behavior scored by an undisclosed model</li>
+      <li>Declined. No factor is shown, so nothing to act on</li>
+      <li>Turns to an informal lender at a steeper rate</li>
+    </ol>
+  </div>
+  <div style="border:1px solid #e8705a;border-radius:12px;padding:16px;background:#fdf9f8">
+    <div style="font-size:12px;font-weight:600;color:#e8705a;margin-bottom:10px">WITH CREDITBRIDGE</div>
+    <ol style="margin:0;padding-left:18px;font-size:12.5px;color:#3a332e;line-height:2">
+      <li>Scores 494 today, limited history tier, and sees exactly why: consistency and repayment history are the two biggest drags</li>
+      <li>Commits to steadier weekly hours. Three months later, consistency and repayment history improve, and she now scores 582, still conditional, but visibly closer, not a black-box rejection</li>
+      <li>By month six, with consistency near 90%, more completed trips, and a clean repayment record from a small conditional-tier loan, she scores 634, approved, and that repayment has started building bureau-reported history</li>
+    </ol>
+  </div>
+</div>
+<p class="mtext" style="font-size:12px;color:#9a9088">These three scores were computed with the same formula and weights used in the live prototype above, not written to fit the story. You can verify them yourself by entering Daphne's starting numbers into the calculator.</p>
+
+<p class="mtext" style="font-size:12.5px;color:#9a9088">Honest caveat: none of this means CreditBridge would out-compete Bank Jago at scale, they have real capital, a banking license, and an existing customer base. The more defensible claim is narrower, this is product judgment applied to a real gap in the incumbents, not a startup pitch to displace them.</p></div>
+
+<div class="msec" id="cb-gtm"><div class="msec-title">Go-to-Market</div><p class="mtext">The GTM motion runs through the platform, not around it, the same distribution logic that made Bank Jago's Gojek partnership work.</p>
+    <div style="display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr;grid-template-rows:auto auto;row-gap:16px;column-gap:10px;align-items:stretch;margin:14px 0 0">
+     <div class="gtm-phase" style="grid-row:1;grid-column:1/2"><div class="gtm-phase-num">Phase 1</div><div class="gtm-phase-name">Platform Partnership</div><div class="gtm-phase-desc">Secure a data-sharing agreement with one gig platform as design partner</div></div>
+     <div style="grid-row:1;grid-column:2/3;display:flex;align-items:center;justify-content:center;color:#c9b9d9;font-size:16px">&#8594;</div>
+     <div class="gtm-phase" style="grid-row:1;grid-column:3/4"><div class="gtm-phase-num">Phase 2</div><div class="gtm-phase-name">Consent Onboarding</div><div class="gtm-phase-desc">In-app consent flow for workers to opt into verified data sharing</div></div>
+     <div style="grid-row:1;grid-column:4/5;display:flex;align-items:center;justify-content:center;color:#c9b9d9;font-size:16px">&#8594;</div>
+     <div class="gtm-phase" style="grid-row:1;grid-column:5/6"><div class="gtm-phase-num">Phase 3</div><div class="gtm-phase-name">Pilot City Launch</div><div class="gtm-phase-desc">Single city, single worker segment, to validate calibration on real data</div></div>
+
+     <div class="gtm-phase" style="grid-row:2;grid-column:1/2"><div class="gtm-phase-num">Phase 4</div><div class="gtm-phase-name">Driver-Community Referral</div><div class="gtm-phase-desc">Word-of-mouth through existing driver groups, the trust layer money can't buy</div></div>
+     <div style="grid-row:2;grid-column:2/3;display:flex;align-items:center;justify-content:center;color:#c9b9d9;font-size:16px">&#8594;</div>
+     <div class="gtm-phase" style="grid-row:2;grid-column:3/4"><div class="gtm-phase-num">Phase 5</div><div class="gtm-phase-name">Multi-City Scale</div><div class="gtm-phase-desc">Expand once repayment data confirms calibration holds outside the pilot</div></div>
     </div></div>
 
     <div class="msec" id="cb-lifecycle"><div class="msec-title">Lifecycle Marketing</div><p class="mtext">A worker's relationship with CreditBridge isn't a single transaction, it's a graduation path, and each stage needs a different message.</p>
