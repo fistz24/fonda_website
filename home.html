@@ -133,7 +133,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .kumo-demo-dots span:nth-child(3){background:#28c840}
 .kumo-demo-url{flex:1;background:#1a1a1a;border-radius:6px;padding:5px 12px;font-size:11px;color:#aaa;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .kumo-demo-frame iframe{display:block;width:100%;height:520px;border:none;background:#f5f3ef}
-@media(max-width:640px){.kumo-features{grid-template-columns:1fr}.kumo-cta-banner{flex-direction:column;align-items:flex-start}.kumo-demo-frame iframe{height:420px}}
+/* Phone frame for live demo */
+.kumo-phone-wrap{display:flex;justify-content:center;padding:8px 0 12px}
+.kumo-phone{position:relative;width:280px;height:580px;background:#1a1a1a;border-radius:40px;padding:12px;box-shadow:0 20px 50px rgba(0,0,0,.22),inset 0 0 0 2px #333}
+.kumo-phone-notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#1a1a1a;border-radius:12px;z-index:3}
+.kumo-phone-screen{width:100%;height:100%;border-radius:30px;overflow:hidden;background:#f5f3ef;position:relative}
+.kumo-phone-screen iframe{position:absolute;top:0;left:0;width:375px;height:812px;border:none;transform:scale(0.682);transform-origin:top left;background:#f5f3ef}
+.kumo-phone-home{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:100px;height:4px;background:#444;border-radius:4px;z-index:3}
+/* Onboarding strip */
+.kumo-onboard-strip{display:flex;gap:16px;overflow-x:auto;padding:8px 4px 20px;margin:18px 0 8px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+.kumo-onboard-card{flex:0 0 200px;scroll-snap-align:start}
+.kumo-mini-phone{width:200px;height:400px;background:#1a1a1a;border-radius:28px;padding:8px;box-shadow:0 12px 32px rgba(0,0,0,.16);margin-bottom:12px}
+.kumo-mini-body{width:100%;height:100%;border-radius:22px;background:#f7f4ef;overflow:hidden;padding:14px 12px 12px;display:flex;flex-direction:column;font-family:Inter,system-ui,sans-serif;position:relative}
+.kumo-ob-progress{height:3px;background:#e8e4de;border-radius:2px;margin-bottom:14px;overflow:hidden}
+.kumo-ob-progress span{display:block;height:100%;background:#6b8cff;border-radius:2px}
+.kumo-ob-logo{font-family:Lora,serif;font-size:22px;font-weight:600;letter-spacing:.04em;text-align:center;margin:18px 0 10px;color:#1a1a1a}
+.kumo-ob-h{font-family:Lora,serif;font-size:17px;font-weight:600;text-align:center;line-height:1.25;color:#1a1a1a;margin-bottom:8px}
+.kumo-ob-p{font-size:11px;color:#6a6a6a;text-align:center;line-height:1.45;padding:0 4px}
+.kumo-ob-cta{margin-top:auto;background:#6b8cff;color:#fff;text-align:center;padding:10px;border-radius:999px;font-size:12px;font-weight:600}
+.kumo-ob-cta.soft{background:#dce6ff;color:#3a5fcc}
+.kumo-ob-bubble{background:#fff;border-radius:14px;padding:10px 12px;font-size:11.5px;line-height:1.4;color:#1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:10px}
+.kumo-ob-bubble em{font-style:normal;color:#4a6fd8;font-weight:600}
+.kumo-ob-chip{background:#fff;border:1px solid #ebe7e1;border-radius:12px;padding:8px 10px;font-size:11px;color:#2a2a2a;margin-bottom:6px}
+.kumo-ob-feat{background:#fff;border:1px solid #ebe7e1;border-radius:12px;padding:9px 10px;margin-bottom:6px}
+.kumo-ob-feat strong{display:block;font-size:12px;color:#1a1a1a}
+.kumo-ob-feat span{font-size:10.5px;color:#7a7a7a}
+.kumo-ob-flags{font-size:11px;line-height:1.7;color:#3a3a3a;background:#fff;border-radius:12px;padding:10px;border:1px solid #ebe7e1;margin-bottom:8px}
+.kumo-onboard-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8b6fc2;margin-bottom:4px}
+.kumo-onboard-why{font-size:12.5px;color:var(--text-mid);line-height:1.55;margin:0}
+@media(max-width:640px){.kumo-features{grid-template-columns:1fr}.kumo-cta-banner{flex-direction:column;align-items:flex-start}/* phone demo uses .kumo-phone-screen iframe */}
 .modal-inner{display:flex;height:76vh;overflow:hidden;border-bottom-left-radius:20px;border-bottom-right-radius:20px}
 .modal-toc{width:185px;flex-shrink:0;background:#fafafa;border-right:1px solid var(--border);padding:22px 14px;overflow-y:auto;border-bottom-left-radius:20px}
 .modal-toc a{display:block;font-size:12px;color:var(--text-mid);text-decoration:none;padding:7px 12px;border-radius:7px;margin-bottom:2px;line-height:1.4;transition:all .15s;cursor:pointer}
@@ -998,12 +1026,13 @@ loadPersona('michelle');
    <button class="modal-x" onclick="closeModal('kumo')">&#x2715;</button>
    <div class="modal-mtype">Side Project · Shipped</div>
    <div class="modal-mtitle">Kumo Travel App &#x2708;&#xFE0F;</div>
-   <p class="modal-msub" style="margin-top:10px;max-width:520px;line-height:1.55">A travel companion that keeps documents, expenses, and memories in one place — so you can focus on the trip, not the tabs.</p>
+   <p class="modal-msub" style="margin-top:10px;max-width:520px;line-height:1.55">A travel companion that keeps documents, expenses, and memories in one place, so you can focus on the trip, not the tabs.</p>
    <a href="https://kumo-travel-app.vercel.app" target="_blank" rel="noopener noreferrer" class="modal-visit-btn" onclick="event.stopPropagation()">Visit the live app →</a>
   </div>
   <div class="modal-inner">
    <div class="modal-toc">
     <a onclick="scrollSec('k-demo','mc-kumo')">Product demo</a>
+    <a onclick="scrollSec('k-onboard','mc-kumo')">Onboarding</a>
     <a onclick="scrollSec('k-features','mc-kumo')">Features</a>
     <a onclick="scrollSec('k-name','mc-kumo')">The Name</a>
     <a onclick="scrollSec('k-insight','mc-kumo')">The Insight</a>
@@ -1025,14 +1054,84 @@ loadPersona('michelle');
         <div class="msec-title">Product demo</div>
         <a class="kumo-demo-link" href="https://kumo-travel-app.vercel.app" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Open full screen →</a>
       </div>
-      <p class="mtext" style="margin-bottom:14px">Explore the live app below — trips, documents, finances, and memories. Click around; this is the real product, not a mockup.</p>
-      <div class="kumo-demo-frame">
-        <div class="kumo-demo-chrome">
-          <div class="kumo-demo-dots"><span></span><span></span><span></span></div>
-          <div class="kumo-demo-url">kumo-travel-app.vercel.app</div>
+      <p class="mtext" style="margin-bottom:18px">Kumo is built for the phone in your pocket, not a desktop spreadsheet. Try the live app below.</p>
+      <div class="kumo-phone-wrap">
+        <div class="kumo-phone">
+          <div class="kumo-phone-notch"></div>
+          <div class="kumo-phone-screen">
+            <iframe src="https://kumo-travel-app.vercel.app" title="Kumo Travel App live demo" loading="lazy" allow="fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="kumo-phone-home"></div>
         </div>
-        <iframe src="https://kumo-travel-app.vercel.app" title="Kumo Travel App live demo" loading="lazy" allow="fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
+    </div>
+
+    <div class="msec" id="k-onboard">
+      <div class="msec-title">Onboarding: getting people to care in under a minute</div>
+      <p class="mtext">Most travel apps open with a wall of features or a forced account. I wanted the opposite: a short conversation that makes someone nod and think, "yeah, that's exactly my mess."</p>
+      <p class="mtext">The flow is about a minute. Each step does one job: name the pain, show the fix, ask something small so the app already feels personal before the first trip is created.</p>
+
+      <div class="kumo-onboard-strip">
+        <div class="kumo-onboard-card">
+          <div class="kumo-mini-phone">
+            <div class="kumo-mini-body kumo-ob-welcome">
+              <div class="kumo-ob-progress"><span style="width:18%"></span></div>
+              <div class="kumo-ob-logo">KUMO</div>
+              <div class="kumo-ob-h">Travel lighter<br>with Kumo</div>
+              <div class="kumo-ob-p">One place for your trips — plans, bookings, spending, and memories.</div>
+              <div class="kumo-ob-cta">Continue</div>
+            </div>
+          </div>
+          <div class="kumo-onboard-label">1 · Welcome</div>
+          <p class="kumo-onboard-why">Lead with the promise, not the feature list. "Travel lighter" is what people actually want.</p>
+        </div>
+
+        <div class="kumo-onboard-card">
+          <div class="kumo-mini-phone">
+            <div class="kumo-mini-body kumo-ob-pain">
+              <div class="kumo-ob-progress"><span style="width:40%"></span></div>
+              <div class="kumo-ob-bubble">Sound familiar? Travel info usually lives in <em>five different apps</em>.</div>
+              <div class="kumo-ob-chip">📧 Confirmations buried in email</div>
+              <div class="kumo-ob-chip">📑 Tickets in random PDFs</div>
+              <div class="kumo-ob-chip">💸 Expenses in a separate sheet</div>
+              <div class="kumo-ob-chip">📷 Photos lost in the camera roll</div>
+              <div class="kumo-ob-cta">That’s me</div>
+            </div>
+          </div>
+          <div class="kumo-onboard-label">2 · Name the mess</div>
+          <p class="kumo-onboard-why">If someone taps "That's me," they've already agreed the problem is theirs. Much stronger than "Sign up to organize trips."</p>
+        </div>
+
+        <div class="kumo-onboard-card">
+          <div class="kumo-mini-phone">
+            <div class="kumo-mini-body kumo-ob-value">
+              <div class="kumo-ob-progress"><span style="width:55%"></span></div>
+              <div class="kumo-ob-bubble">Kumo keeps the whole trip in <em>one workspace</em>.</div>
+              <div class="kumo-ob-feat"><strong>Documents</strong><span>Hotels, tickets, reservations</span></div>
+              <div class="kumo-ob-feat"><strong>Expenses</strong><span>Track spend inside the trip</span></div>
+              <div class="kumo-ob-feat"><strong>Memories</strong><span>Places, ratings, notes</span></div>
+              <div class="kumo-ob-cta">Show me around</div>
+            </div>
+          </div>
+          <div class="kumo-onboard-label">3 · Show the fix</div>
+          <p class="kumo-onboard-why">Only after the pain lands do we introduce the three pillars. Context first, product second.</p>
+        </div>
+
+        <div class="kumo-onboard-card">
+          <div class="kumo-mini-phone">
+            <div class="kumo-mini-body kumo-ob-passport">
+              <div class="kumo-ob-progress"><span style="width:70%"></span></div>
+              <div class="kumo-ob-bubble">Which countries have you <em>already visited</em>?</div>
+              <div class="kumo-ob-flags">🇯🇵 Japan · 🇰🇷 Korea · 🇹🇭 Thailand · 🇮🇩 Indonesia · 🇸🇬 Singapore · 🇲🇾 Malaysia</div>
+              <div class="kumo-ob-cta soft">Skip for now</div>
+            </div>
+          </div>
+          <div class="kumo-onboard-label">4 · Make it theirs</div>
+          <p class="kumo-onboard-why">A light personalization step (passport stamps) so the home screen isn't empty, and skipping is always allowed. No dead ends.</p>
+        </div>
+      </div>
+
+      <p class="mtext" style="margin-top:8px">I kept every screen skimmable on purpose. Travelers are often onboarding from a boarding gate or a hotel bed, not at a desk. If a step takes more than a glance, it doesn't belong here.</p>
     </div>
 
     <div class="msec" id="k-features">
