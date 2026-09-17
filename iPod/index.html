@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iPod Player — Portfolio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: transparent;
+      min-height: 100%;
+    }
+
+    .ipod-player {
+      position: relative;
+      display: inline-block;
+      width: min(100%, 420px);
+      line-height: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: pointer;
+    }
+
+    .ipod-player img.ipod-art {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
+
+    /*
+      Progress layer: full-size transparent PNG with green fill
+      painted exactly along the drawn strip. Clipped from the left
+      as audio progresses so the green follows your strip.
+    */
+    .progress-layer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
+      -webkit-clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
+    }
+
+    .progress-layer img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
+
+    .play-hit {
+      position: absolute;
+      left: 36%;
+      top: 51%;
+      width: 30%;
+      height: 22%;
+      border-radius: 50%;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+      outline: none;
+      z-index: 3;
+    }
+
+    .play-hit:focus-visible {
+      box-shadow: 0 0 0 3px rgba(16, 168, 87, 0.7);
+    }
+
+    .play-hit:active {
+      transform: scale(0.97);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="ipod-player" id="ipod" role="region" aria-label="Interactive iPod player">
+    <img
+      class="ipod-art"
+      src="ipod.png"
+      alt="Hand-drawn iPod showing Hello World by Fonda"
+      draggable="false"
+    />
+
+    <div class="progress-layer" id="progressLayer" aria-hidden="true">
+      <img src="green-progress-layer.png" alt="" draggable="false" />
+    </div>
+
+    <button
+      type="button"
+      class="play-hit"
+      id="playBtn"
+      aria-label="Play introduction"
+      title="Play / Pause"
+    >
+      <span class="sr-only">Play or pause audio</span>
+    </button>
+
+    <audio id="audio" preload="auto">
+      <source src="audio.mp3" type="audio/mpeg" />
+      <source src="audio.wav" type="audio/wav" />
+    </audio>
+  </div>
+
+  <script>
+    (function () {
+      const audio = document.getElementById('audio');
+      const layer = document.getElementById('progressLayer');
+      const btn = document.getElementById('playBtn');
+      const ipod = document.getElementById('ipod');
+
+      let rafId = null;
+
+      // Strip occupies the exact hand-drawn progress track under the screen.
+      // Map audio progress into that range so the green reveals along the strip outline.
+      const STRIP_START = 39.81;
+      const STRIP_END = 52.58;
+
+      function setProgress(ratio) {
+        const r = Math.min(1, Math.max(0, ratio));
+        const pct = STRIP_START + r * (STRIP_END - STRIP_START);
+        layer.style.setProperty('--progress', pct + '%');
+      }
+
+      function tick() {
+        if (audio.duration && !isNaN(audio.duration)) {
+          setProgress(audio.currentTime / audio.duration);
+        }
+        if (!audio.paused) {
+          rafId = requestAnimationFrame(tick);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function startProgressLoop() {
+        if (rafId == null) rafId = requestAnimationFrame(tick);
+      }
+
+      function stopProgressLoop() {
+        if (rafId != null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
+
+      async function togglePlay() {
+        try {
+          if (audio.paused) {
+            if (audio.readyState < 2) audio.load();
+            await audio.play();
+            btn.setAttribute('aria-label', 'Pause introduction');
+            startProgressLoop();
+          } else {
+            audio.pause();
+            btn.setAttribute('aria-label', 'Play introduction');
+            stopProgressLoop();
+            if (audio.duration) {
+              setProgress(audio.currentTime / audio.duration);
+            }
+          }
+        } catch (err) {
+          console.error('Playback failed:', err.name, err.message);
+          try {
+            await new Promise(function (r) { setTimeout(r, 100); });
+            await audio.play();
+            btn.setAttribute('aria-label', 'Pause introduction');
+            startProgressLoop();
+          } catch (err2) {
+            console.error('Retry failed:', err2.name, err2.message);
+          }
+        }
+      }
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        togglePlay();
+      });
+
+      ipod.addEventListener('click', function (e) {
+        if (e.target === btn || btn.contains(e.target)) return;
+        togglePlay();
+      });
+
+      audio.addEventListener('ended', function () {
+        setProgress(1);
+        btn.setAttribute('aria-label', 'Play introduction');
+        stopProgressLoop();
+        setTimeout(function () {
+          audio.currentTime = 0;
+          setProgress(0);
+        }, 400);
+      });
+
+      audio.addEventListener('pause', function () {
+        stopProgressLoop();
+        if (audio.duration) {
+          setProgress(audio.currentTime / audio.duration);
+        }
+      });
+
+      audio.addEventListener('play', function () {
+        startProgressLoop();
+      });
+
+      audio.addEventListener('timeupdate', function () {
+        if (audio.duration && !isNaN(audio.duration)) {
+          setProgress(audio.currentTime / audio.duration);
+        }
+      });
+
+      audio.load();
+    })();
+  </script>
+</body>
+</html>
