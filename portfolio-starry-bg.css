@@ -1,0 +1,116 @@
+/* ============================================================
+   Portfolio Starry Fabric Background
+   Color: #f5e9db  |  Texture from reference  |  Blinking stars
+   ============================================================ */
+
+:root {
+  --bg-color: #f5e9db;
+  --star-color: #e6c04a;
+  --star-glow: #f0d878;
+}
+
+/* ---------- Main background ---------- */
+.portfolio-bg,
+body.portfolio-bg {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  background-image: url('./portfolio-bg-texture.webp');
+  background-size: cover;          /* flexible for desktop & mobile */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;    /* optional parallax feel – remove if you prefer scroll with content */
+  overflow-x: hidden;
+}
+
+/* Fallback for browsers without webp */
+@supports not (background-image: url('./portfolio-bg-texture.webp')) {
+  .portfolio-bg,
+  body.portfolio-bg {
+    background-image: url('./portfolio-bg-texture.jpg');
+  }
+}
+
+/* ---------- Stars container ---------- */
+.stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Individual star */
+.star {
+  position: absolute;
+  width: var(--size, 14px);
+  height: var(--size, 14px);
+  background: var(--star-color);
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
+  opacity: 0.85;
+  filter: drop-shadow(0 0 3px var(--star-glow));
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Soft glow layer for nicer twinkle */
+.star::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle, var(--star-glow) 0%, transparent 70%);
+  opacity: 0.45;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* ---------- Twinkle animation ---------- */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(0.85);
+    filter: drop-shadow(0 0 2px var(--star-glow));
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1.05);
+    filter: drop-shadow(0 0 6px var(--star-glow)) drop-shadow(0 0 10px rgba(240, 216, 120, 0.5));
+  }
+  70% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(0.95);
+  }
+}
+
+/* ---------- Responsive size tweaks ---------- */
+@media (max-width: 768px) {
+  .star {
+    --size: 11px; /* slightly smaller on mobile */
+  }
+}
+
+@media (min-width: 1200px) {
+  .star {
+    --size: 16px;
+  }
+}
+
+/* Make sure your content sits above the stars */
+.portfolio-bg > *:not(.stars) {
+  position: relative;
+  z-index: 1;
+}

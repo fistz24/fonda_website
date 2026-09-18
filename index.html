@@ -96,9 +96,30 @@
       overflow: hidden;
       padding: 32px 24px;
       position: relative;
-      background:
-        radial-gradient(ellipse 70% 45% at 50% -5%, #f0e4d8 0%, transparent 55%),
-        var(--bg);
+      /* starry fabric from portfolio-starry-bg.css */
+      background-color: #f5e9db;
+      background-image: url('./portfolio-bg-texture.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    @supports not (background-image: url('./portfolio-bg-texture.webp')) {
+      #welcome {
+        background-image: url('./portfolio-bg-texture.jpg');
+      }
+    }
+    #welcome .stars {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    #welcome .welcome-layout {
+      position: relative;
+      z-index: 2;
     }
     .welcome-layout {
       display: block;
@@ -113,38 +134,51 @@
       text-align: center;
       margin: 0 auto;
     }
-    /* iPod fixed on the right, doesn't push the centered content */
+    /* iPod on the right — absolute so center content stays centered */
+    #welcome .ipod-slot,
     .ipod-slot {
       position: absolute;
-      right: clamp(16px, 6vw, 80px);
+      right: clamp(20px, 5vw, 72px);
       top: 50%;
       transform: translateY(-50%);
-      z-index: 1;
+      z-index: 2;
       flex: none;
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
     }
     .ipod-slot .ipod-player {
-      width: min(22vw, 220px);
+      width: min(20vw, 210px);
     }
-    @media (max-width: 900px) {
+    /* Tablet / mobile: stack iPod under the centered content */
+    @media (max-width: 700px) {
+      #welcome .ipod-slot,
       .ipod-slot {
-        position: static;
+        position: relative;
+        right: auto;
+        top: auto;
         transform: none;
-        margin: 28px auto 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        margin: 24px auto 0;
+        width: 100%;
       }
       .ipod-slot .ipod-player {
-        width: min(100%, 200px);
+        width: min(42vw, 180px);
       }
       #welcome {
         overflow-y: auto;
         max-height: none;
         height: auto;
         min-height: 100vh;
+        padding-bottom: 32px;
       }
       body.no-scroll { overflow: auto; height: auto; }
+    }
+    @media (max-width: 520px) {
+      .ipod-slot .ipod-player {
+        width: min(50vw, 160px);
+      }
     }
     .envelope-icon {
       width: 110px;
@@ -598,9 +632,8 @@
     .toast.show { transform: translateX(-50%) translateY(0); }
 
 
-    /* iPod bubble + player base styles */
+    /* iPod bubble + player base styles (position comes from #welcome .ipod-slot) */
     .ipod-slot {
-      /* position set in #welcome block above */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -709,10 +742,35 @@
       .sign-actions .btn { width: 100%; }
     }
   </style>
+  <link rel="stylesheet" href="portfolio-starry-bg.css" />
 </head>
 <body>
   <!-- WELCOME -->
-  <div id="welcome" class="screen active">
+  <div id="welcome" class="screen active portfolio-bg">
+
+    <div class="stars" aria-hidden="true">
+      <div class="star" style="left:18%; top:14%; --size:18px; --dur:3.4s; --delay:0.2s; --rot:12deg;"></div>
+      <div class="star" style="left:76%; top:17%; --size:17px; --dur:2.8s; --delay:1.1s; --rot:-8deg;"></div>
+      <div class="star" style="left:57%; top:49%; --size:16px; --dur:4.1s; --delay:0.7s; --rot:5deg;"></div>
+      <div class="star" style="left:15%; top:81%; --size:17px; --dur:3.2s; --delay:1.8s; --rot:-15deg;"></div>
+      <div class="star" style="left:79%; top:89%; --size:16px; --dur:3.7s; --delay:0.4s; --rot:20deg;"></div>
+      <div class="star" style="left:48%; top:4%;  --size:13px; --dur:2.6s; --delay:0.9s; --rot:0deg;"></div>
+      <div class="star" style="left:12%; top:13%; --size:12px; --dur:3.9s; --delay:2.1s; --rot:25deg;"></div>
+      <div class="star" style="left:82%; top:16%; --size:13px; --dur:2.9s; --delay:0.3s; --rot:-20deg;"></div>
+      <div class="star" style="left:23%; top:63%; --size:14px; --dur:3.5s; --delay:1.4s; --rot:8deg;"></div>
+      <div class="star" style="left:28%; top:65%; --size:11px; --dur:4.3s; --delay:0.6s; --rot:-5deg;"></div>
+      <div class="star" style="left:83%; top:55%; --size:12px; --dur:2.7s; --delay:1.9s; --rot:15deg;"></div>
+      <div class="star" style="left:74%; top:90%; --size:13px; --dur:3.1s; --delay:0.8s; --rot:-12deg;"></div>
+      <div class="star" style="left:23%; top:34%; --size:9px;  --dur:2.4s; --delay:1.5s; --rot:30deg;"></div>
+      <div class="star" style="left:52%; top:48%; --size:10px; --dur:3.8s; --delay:0.1s; --rot:-18deg;"></div>
+      <div class="star" style="left:18%; top:82%; --size:9px;  --dur:2.5s; --delay:2.3s; --rot:10deg;"></div>
+      <div class="star" style="left:81%; top:91%; --size:10px; --dur:4.0s; --delay:1.2s; --rot:-25deg;"></div>
+      <div class="star" style="left:41%; top:75%; --size:8px;  --dur:2.2s; --delay:0.5s; --rot:5deg;"></div>
+      <div class="star" style="left:6%; top:42%; --size:11px; --dur:3.3s; --delay:1.6s; --rot:18deg;"></div>
+      <div class="star" style="left:92%; top:38%; --size:10px; --dur:2.9s; --delay:0.8s; --rot:-10deg;"></div>
+      <div class="star" style="left:35%; top:22%; --size:9px; --dur:3.6s; --delay:2.0s; --rot:7deg;"></div>
+    </div>
+
     <div class="welcome-layout">
       <div class="welcome-inner">
         <img src="envelope.png" alt="" class="envelope-icon" />
