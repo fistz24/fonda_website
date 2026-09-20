@@ -225,12 +225,26 @@
       background: var(--ink);
       color: #fff;
       box-shadow: 0 8px 24px rgba(28, 25, 23, 0.18);
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     }
-    .btn-primary:hover { background: #2a2522; }
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-primary:focus-visible {
+      background: #f8d6c5;
+      color: #1a1a1a;
+      box-shadow: 0 8px 24px rgba(248, 214, 197, 0.45);
+    }
     .btn-primary:disabled {
       opacity: 0.4;
       cursor: not-allowed;
       transform: none;
+      background: var(--ink);
+      color: #fff;
+      box-shadow: none;
+    }
+    .btn-primary:disabled:hover {
+      background: var(--ink);
+      color: #fff;
     }
     .btn-ghost {
       background: transparent;
@@ -618,7 +632,7 @@
       position: fixed;
       bottom: 28px;
       left: 50%;
-      transform: translateX(-50%) translateY(80px);
+      transform: translateX(-50%) translateY(120px);
       background: var(--ink);
       color: #fff;
       padding: 12px 22px;
@@ -626,10 +640,14 @@
       font-size: 14px;
       font-weight: 500;
       z-index: 200;
-      transition: transform 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
       pointer-events: none;
     }
-    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.show {
+      opacity: 1;
+      visibility: visible; transform: translateX(-50%) translateY(0); }
 
 
     /* iPod bubble + player base styles (position comes from #welcome .ipod-slot) */
@@ -741,6 +759,11 @@
       .sign-actions { flex-direction: column; }
       .sign-actions .btn { width: 100%; }
     }
+
+    100% { transform: translateX(-50%); }
+    }
+    @media (max-width: 700px) {
+      }
   </style>
   <link rel="stylesheet" href="portfolio-starry-bg.css" />
 </head>

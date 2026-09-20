@@ -24,7 +24,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-grad::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(255,200,180,.35) 0%,transparent 60%),radial-gradient(ellipse at 75% 70%,rgba(180,120,170,.3) 0%,transparent 50%)}
 .hero-inner{position:relative;z-index:1;text-align:center;max-width:720px;width:100%}
 .hero-name{font-family:'Lora',serif;font-size:28px;font-weight:500;color:#fff;margin-bottom:14px}
-.hero-tw{font-size:15px;font-weight:300;color:rgba(255,255,255,.88);min-height:48px;line-height:1.6;margin-bottom:36px}
+.hero-tw{font-size:15px;font-weight:300;color:rgba(255,255,255,.88);min-height:24px;line-height:1.55;margin-bottom:12px}
 .cursor-blink{display:inline-block;width:1px;height:1em;background:rgba(255,255,255,.8);margin-left:2px;vertical-align:text-bottom;animation:blink 1s step-end infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .chat-prompt{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:14px}
@@ -310,7 +310,135 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   .design-grid-3{grid-template-columns:1fr 1fr}.brand-img-grid{grid-template-columns:1fr}
   .gtm-phases{grid-template-columns:1fr 1fr}
 }
+
+/* ——— Journey page ——— */
+#page-journey{
+  min-height:100vh;
+  height:100vh;
+  max-height:100vh;
+  padding:80px 56px 40px !important;
+  position:relative;
+  background-color:#f5e9db;
+  background-image:url('portfolio-bg-texture.webp');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  overflow:hidden !important;
+  box-sizing:border-box;
+}
+@supports not (background-image:url('portfolio-bg-texture.webp')){
+  #page-journey{background-image:url('portfolio-bg-texture.jpg');}
+}
+#page-journey .stars{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+#page-journey .journey-inner{
+  position:relative;z-index:1;
+  max-width:1040px;margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(240px,320px) 1fr;
+  gap:64px;
+  align-items:center;
+  height:calc(100vh - 120px);
+  max-height:calc(100vh - 120px);
+}
+.journey-photo-wrap{
+  position:relative;
+  justify-self:center;
+  align-self:center;
+  padding:0;
+}
+.journey-photo-frame{
+  position:relative;
+  display:block;
+  padding:0;
+  background:transparent;
+  line-height:0;
+}
+.journey-photo-frame::before{ display:none; content:none; }
+.journey-photo-frame img{
+  display:block;
+  width:min(28vw, 280px);
+  height:auto;
+  max-height:calc(100vh - 120px);
+  object-fit:contain;
+  border:none;
+  border-radius:0;
+  background:transparent;
+  cursor:none;
+}
+.journey-timeline{
+  position:relative;
+  padding-left:28px;
+  border-left:1.5px solid #1a1a1a;
+  padding-bottom:0;
+  overflow:visible;
+  align-self:center;
+}
+.journey-item{margin-bottom:22px;position:relative;}
+.journey-item:last-of-type{margin-bottom:0;}
+.journey-title{
+  display:block;
+  height:36px;
+  width:auto;
+  max-width:min(100%,420px);
+  margin-bottom:8px;
+}
+.journey-body{
+  font-family:'Inter',sans-serif;
+  font-size:10.5px;
+  font-weight:400;
+  line-height:1.55;
+  color:var(--text-mid, #5a5048);
+  max-width:800px;
+}
+.journey-body p{margin:0 0 8px;}
+.journey-body p:last-child{margin-bottom:0;}
+.journey-note{
+  font-size:10.5px;
+  font-style:italic;
+  color:#6b5e52;
+  margin-top:4px;
+}
+50%{transform:translateY(6px)}
+}
+@media(max-width:860px){
+  #page-journey{padding:72px 20px 40px !important;height:auto;max-height:none;overflow:auto !important}
+  #page-journey .journey-inner{
+    grid-template-columns:1fr;
+    gap:28px;
+    height:auto;
+    max-height:none;
+  }
+  .journey-photo-wrap{position:static;justify-self:center}
+  .journey-photo-frame img{width:min(70vw, 280px);max-height:none}
+}
+/* Custom cursor pill */
+.fonda-cursor{
+  position:fixed;
+  left:0;top:0;
+  transform:translate(-50%,-120%);
+  pointer-events:none;
+  z-index:9999;
+  opacity:0;
+  transition:opacity .18s ease;
+  background:#1c1917;
+  color:#fff;
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.04em;
+  padding:10px 18px;
+  border-radius:999px;
+  white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
+.fonda-cursor.visible{opacity:1}
+
 </style>
+<link rel="stylesheet" href="portfolio-starry-bg.css" />
 </head>
 <body>
 <nav>
@@ -321,6 +449,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <li><a href="#" id="nav-about" onclick="showPage('about');return false">About</a></li>
     <li><a href="https://www.linkedin.com/in/fonda-irena/" target="_blank">LinkedIn</a></li>
     <li><a href="mailto:fondairena@gmail.com" class="nav-email">Email Fonda</a></li>
+    <li><a href="#" id="nav-journey" onclick="showPage('journey');return false">Journey</a></li>
     <li><a href="index.html?view=gallery" id="nav-guestbook">Guest Book</a></li>
   </ul>
 </nav>
@@ -577,6 +706,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   .weight-track { height: 6px; background: var(--muted); border-radius: 3px; overflow: hidden; }
   .weight-fill { height: 100%; background: var(--accent); border-radius: 3px; }
 </style>
+<link rel="stylesheet" href="portfolio-starry-bg.css" />
 </head>
 <body>
 <div class=&quot;wrap&quot;>
@@ -1572,10 +1702,82 @@ loadPersona('michelle');
   </div>
  </div>
 </div>
+
+<div class="page" id="page-journey">
+  <div class="stars" aria-hidden="true">
+    <div class="star" style="left:18%; top:14%; --size:16px; --dur:3.4s; --delay:0.2s; --rot:12deg;"></div>
+    <div class="star" style="left:76%; top:17%; --size:15px; --dur:2.8s; --delay:1.1s; --rot:-8deg;"></div>
+    <div class="star" style="left:57%; top:49%; --size:14px; --dur:4.1s; --delay:0.7s; --rot:5deg;"></div>
+    <div class="star" style="left:15%; top:81%; --size:15px; --dur:3.2s; --delay:1.8s; --rot:-15deg;"></div>
+    <div class="star" style="left:79%; top:89%; --size:14px; --dur:3.7s; --delay:0.4s; --rot:20deg;"></div>
+    <div class="star" style="left:48%; top:8%; --size:12px; --dur:2.6s; --delay:0.9s; --rot:0deg;"></div>
+    <div class="star" style="left:12%; top:40%; --size:11px; --dur:3.9s; --delay:2.1s; --rot:25deg;"></div>
+    <div class="star" style="left:88%; top:55%; --size:12px; --dur:2.7s; --delay:1.9s; --rot:15deg;"></div>
+    <div class="star" style="left:35%; top:70%; --size:10px; --dur:3.5s; --delay:1.4s; --rot:8deg;"></div>
+  </div>
+  <div class="journey-inner">
+    <div class="journey-photo-wrap">
+      <div class="journey-photo-frame" id="journeyPhoto">
+        <img src="journey/fonda-grad.jpg" alt="Fonda in graduation gown" width="340" height="493" />
+      </div>
+    </div>
+    <div class="journey-timeline">
+      <div class="journey-item">
+        <img class="journey-title" src="journey/surabaya-indonesia.svg" alt="Surabaya, Indonesia" />
+        <div class="journey-body">
+          <p>Born and raised in Surabaya. This is where curiosity started. Before I knew exactly what I wanted to do, I knew I wanted to see what was out there.</p>
+        </div>
+      </div>
+      <div class="journey-item">
+        <img class="journey-title" src="journey/shanghai-china.svg" alt="Shanghai, China" />
+        <div class="journey-body">
+          <p>Moved to Shanghai for college at 17. Departed alone and arrived knowing a little Mandarin and left with a much stronger command of the language, along with a much better understanding of what it means to find my footing somewhere unfamiliar. I'm practicing my Mandarin everyday until now!</p>
+        </div>
+      </div>
+      <div class="journey-item">
+        <img class="journey-title" src="journey/chicago-illinois.svg" alt="Chicago, Illinois" />
+        <div class="journey-body">
+          <p>Transferred colleges and eventually found my way into consulting. Chicago was where education started turning into a career. I learned to approach ambiguous problems, work with different perspectives, and turn messy questions into something actionable. The city was cold, but the people and experiences were warm.</p>
+          <p>I'd like to thank Charlie Johnson and Ryan Johnson from C.H Johnson Consulting for trusting me all the way through, and giving me the opportunity to prove myself.</p>
+        </div>
+      </div>
+      <div class="journey-item">
+        <img class="journey-title" src="journey/pittsburgh-pennsylvania.svg" alt="Pittsburgh, Pennsylvania" />
+        <div class="journey-body">
+          <p>MBA at Carnegie Mellon. Pittsburgh became the place where business, technology, and product started coming together for me. The people, community, resources.....each one of these was invaluable.</p>
+          <p>The summer that stayed with me: Chime, one of leading FinTech companies in the U.S</p>
+          <p class="journey-note">*shoutout to my Managers, Allison Berliner &amp; Salim Peshawaria. They definitely set me up for success since Day 1.</p>
+        </div>
+      </div>
+</div>
+  </div>
+</div>
+<div class="fonda-cursor" id="fondaCursor">Hey! It's me, Fonda</div>
 <script>
 (function(){
 function showPage(id){document.querySelectorAll(".page").forEach(function(pg){pg.classList.remove("active");});var el=document.getElementById("page-"+id);if(el)el.classList.add("active");document.querySelectorAll(".nav-links a").forEach(function(a){a.classList.remove("active");});var lnk=document.getElementById("nav-"+id);if(lnk)lnk.classList.add("active");window.scrollTo(0,0);}
 window.showPage=showPage;
+
+(function(){
+  var cursor=document.getElementById('fondaCursor');
+  var photo=document.getElementById('journeyPhoto');
+  if(!cursor||!photo)return;
+  var active=false;
+  function move(e){
+    cursor.style.left=e.clientX+'px';
+    cursor.style.top=e.clientY+'px';
+  }
+  photo.addEventListener('mouseenter',function(){
+    active=true;cursor.classList.add('visible');
+  });
+  photo.addEventListener('mouseleave',function(){
+    active=false;cursor.classList.remove('visible');
+  });
+  document.addEventListener('mousemove',function(e){
+    if(active)move(e);
+  });
+})();
+
 var ni=document.getElementById("nav-chat");if(ni)ni.classList.add("active");
 var twLines=["I went from Venture Capital to founding 2 companies to an MBA", "I turned 2 CPG brands into GTM success stories in Indonesia", "I grew a brand's sales by 200% in 3 months during a pandemic with zero playbook", "I translate data into strategy and strategy into execution", "I went from analyzing startups to building one from scratch"];
 var twI=0,twC=0,twDel=false;
