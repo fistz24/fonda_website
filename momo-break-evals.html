@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Momo Break evals · Fonda Irena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #FBFBF9; font-family: Inter, system-ui, sans-serif; color: #2b2420; }
+  .site-nav {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; padding: 0 28px;
+    background: rgba(253,250,248,.95); backdrop-filter: blur(14px);
+    border-bottom: 1px solid #E8E5E2;
+  }
+  .site-nav a { text-decoration: none; }
+  .site-logo {
+    font-family: Lora, serif; font-size: 19px; font-weight: 600;
+    background: linear-gradient(135deg,#E8705A,#C97BAF);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .site-back { font-size: 13px; font-weight: 500; color: #4A4A4A; }
+  .site-back:hover { color: #E8705A; }
+
+  .momo-case { --paper:#FBFBF9; --accent:#dda285; --ink:#2b2420; --muted:#85766c; --fail:#c4543d; --pass:#c9dccd;
+    font-family: inherit; color: var(--ink); background: var(--paper);
+    max-width: 640px; margin: 0 auto; padding: 48px 22px 80px; font-size: 18px; line-height: 1.7; box-sizing: border-box; }
+  .momo-case *, .momo-case *::before, .momo-case *::after { box-sizing: border-box; }
+  .momo-case .meta { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+  .momo-case h1 { font-family: Lora, serif; font-size: clamp(30px, 6vw, 44px); line-height: 1.12; letter-spacing: -.01em; font-weight: 600; margin: 0 0 28px; }
+  .momo-case h2 { font-family: Lora, serif; font-size: 22px; line-height: 1.3; margin: 46px 0 10px; font-weight: 600; }
+  .momo-case p { margin: 0 0 18px; }
+  .momo-case blockquote { margin: 40px 0; padding: 4px 0 4px 20px; border-left: 3px solid var(--accent); font-family: Lora, serif; font-size: 22px; line-height: 1.45; font-style: italic; }
+  .momo-case pre { background: #2b2420; color: #fbeee5; padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: 14px; line-height: 1.5; margin: 6px 0 22px; }
+  .momo-case code { font-family: ui-monospace, Menlo, Consolas, monospace; }
+  .momo-case p code { background: #f3ebe4; padding: 1px 6px; border-radius: 5px; font-size: .86em; }
+  .momo-case a { color: #a8664a; text-underline-offset: 3px; }
+
+  .momo-case figure { margin: 30px 0 34px; }
+  .momo-case figcaption { font-size: 14px; color: var(--muted); line-height: 1.5; margin-top: 10px; }
+  .momo-case .map { display: flex; flex-wrap: wrap; gap: 18px 26px; }
+  .momo-case .grp b { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .momo-case .dots { display: flex; flex-wrap: wrap; gap: 4px; max-width: 150px; }
+  .momo-case .dot { width: 18px; height: 18px; border-radius: 4px; border: 0; padding: 0; cursor: pointer; background: var(--pass); }
+  .momo-case .dot.f { background: var(--fail); }
+  .momo-case .dot.w { background: var(--accent); }
+  .momo-case .dot:hover, .momo-case .dot:focus-visible, .momo-case .dot.on { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .momo-case .cap { min-height: 3.2em; font-size: 15px; margin-top: 14px; line-height: 1.5; }
+  .momo-case .cap i { font-style: normal; font-weight: 700; }
+  .momo-case .key { display: flex; gap: 16px; font-size: 13px; color: var(--muted); margin-top: 6px; flex-wrap: wrap; }
+  .momo-case .key span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--pass); }
+  .momo-case .key .kf::before { background: var(--fail); }
+  .momo-case .key .kw::before { background: var(--accent); }
+
+  .momo-case .strip { display: flex; height: 38px; border-radius: 8px; overflow: hidden; gap: 2px; }
+  .momo-case .strip div { display: flex; align-items: center; padding-left: 10px; color: #fff; font-weight: 700; font-size: 15px; }
+  .momo-case .why { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 12px; margin-top: 12px; font-size: 14px; line-height: 1.45; }
+  .momo-case .why b { display: block; font-size: 14px; }
+  .momo-case .why span { color: var(--muted); }
+  .momo-case svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .momo-case svg text { font-family: inherit; }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a class="site-logo" href="home.html">Fonda.</a>
+  <a class="site-back" href="home.html#projects">← Projects</a>
+</nav>
+<article class="momo-case">
+
+  <p class="meta">Momo Break · Chrome extension · evals</p>
+  <h1>I tested my own product against my own spec. It failed 10 of 49.</h1>
+
+  <p>Momo Break nudges you to take a break. After about 50 minutes of work, a small peach mascot slides into the corner of your screen and offers you a ten-minute checklist: drink water, check your posture, look out the window. I built it, used it, and thought it worked.</p>
+
+  <p>Then I wrote down every rule I had promised and checked each one against the code.</p>
+
+  <h2>What I was worried about</h2>
+
+  <p>A break reminder has one job that matters, which is not being annoying. If it shows up during a screen share or at 6:06pm, people uninstall it. There's no AI in the trigger logic and I wanted to keep it that way, but that meant the only thing standing between me and a bad experience was my own testing, and I only ever tested the happy path.</p>
+
+  <p>So I turned the spec into 49 checks, ran them against the real extension code, and read 30 generated pop-ups myself to see what felt off. Ten checks failed on the first run, and six more were judgment calls I'd never actually made.</p>
+
+  <figure>
+    <div class="map" id="mc-map"></div>
+    <div class="key"><span>passed</span><span class="kf">failed</span><span class="kw">needs a decision</span></div>
+    <p class="cap" id="mc-cap">Every square is one check from the first run. Tap one to read the rule.</p>
+  </figure>
+
+  <h2>What broke</h2>
+
+  <p>I grouped the ten failures by cause, and most of them weren't a wrong line of code. They were rules that collided with each other.</p>
+
+  <figure>
+    <div class="strip" role="img" aria-label="Ten failures by cause: four from features colliding, two promised but never built, three where code drifted from the spec, one hidden assumption">
+      <div style="flex:4;background:#c4543d">4</div>
+      <div style="flex:2;background:#8a5a43">2</div>
+      <div style="flex:3;background:#dda285">3</div>
+      <div style="flex:1;background:#85766c"></div>
+    </div>
+    <div class="why">
+      <div><b>Features colliding</b><span>Snooze and the gentle pop-up</span></div>
+      <div><b>Promised, never built</b><span>Screen share, typing pause</span></div>
+      <div><b>Code drifted from spec</b><span>Checklist size, repeated greetings</span></div>
+      <div><b>Hidden assumption</b><span>Daily reset used the UTC date</span></div>
+    </div>
+    <figcaption>My own grouping of the 10 first-run failures.</figcaption>
+  </figure>
+
+  <p>The worst one was the gentle pop-up, the softer version Momo sends after you snooze twice. It skipped every guardrail. I snoozed at 17:55 and it showed up at 18:06 anyway. The same shortcut also let it ignore the daily cap of six and the three-skip stop. One code path, three failures. The fix was three extra conditions on a single <code>if</code>.</p>
+
+  <p>Snooze was the other one. The spec said ten minutes and Momo took fifty. Showing a pop-up reset the work timer, so a snooze quietly meant starting a whole new cycle. You'd never find that by clicking around. You'd have to snooze and then wait fifty minutes, and nobody does that.</p>
+
+  <p>The checklist is supposed to open with a quick win, water or posture. In 14% of sessions it gave neither, because stretch and "look out the window" were also flagged as quick and could take the slot.</p>
+
+  <p>Two items in my spec turned out not to exist. Nothing in the code detects a screen share, and nothing waits for you to stop typing. Both still fail, and I've left them failing on purpose.</p>
+
+  <blockquote>I'd rather have a promise I haven't built show up as a red line in a report than as a sentence in a README.</blockquote>
+
+  <h2>When the test was right and when I was</h2>
+
+  <p>Not every failure meant the code was wrong. Sometimes my spec was. I wrote that "active" means input in the last two minutes, but the code uses sixty seconds, which is stricter and simpler, and nothing depended on the longer window. I changed the spec. Same for 18:00, which the code counts as inside work hours, and for "feeling better" over my original "feel better".</p>
+
+  <p>Other times I changed the code, when a product promise was at stake. With no web page open, the extension used to open a google.com tab just to have somewhere to draw. The tagline says Momo never blocks your screen, so I removed it. Now it sends a notification and waits.</p>
+
+  <p>Here is the pass count after each run as I worked through them. It isn't at 49 yet. What's left is either a feature I haven't built or a decision I haven't made.</p>
+
+  <figure>
+    <svg viewBox="0 0 640 230" role="img" aria-label="Passing checks per run: 33, 36, 37, 38, 41 out of 49">
+      <line x1="40" y1="24" x2="620" y2="24" stroke="#85766c" stroke-dasharray="3 5" stroke-width="1"/>
+      <text x="40" y="14" font-size="12" fill="#85766c">all 49</text>
+      <polyline points="70,155 195,131 320,122 445,114 570,90" fill="none" stroke="#dda285" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+      <g fill="#2b2420">
+        <circle cx="70" cy="155" r="5"/><circle cx="195" cy="131" r="5"/><circle cx="320" cy="122" r="5"/><circle cx="445" cy="114" r="5"/><circle cx="570" cy="90" r="6" fill="#dda285" stroke="#2b2420" stroke-width="2"/>
+      </g>
+      <g font-size="13" fill="#2b2420" text-anchor="middle">
+        <text x="70" y="140" font-weight="700">33</text><text x="195" y="116" font-weight="700">36</text><text x="320" y="107" font-weight="700">37</text><text x="445" y="99" font-weight="700">38</text><text x="570" y="73" font-weight="700">41</text>
+      </g>
+      <g font-size="12" fill="#85766c" text-anchor="middle">
+        <text x="70" y="186">first run</text>
+        <text x="195" y="186">gentle pop-up</text><text x="195" y="201">fix</text>
+        <text x="320" y="186">checklist</text><text x="320" y="201">fix</text>
+        <text x="445" y="186">one more</text><text x="445" y="201">fix</text>
+        <text x="570" y="186">spec</text><text x="570" y="201">decisions</text>
+      </g>
+    </svg>
+    <figcaption>Passing checks per run, out of 49.</figcaption>
+  </figure>
+
+  <h2>Can these tests even fail?</h2>
+
+  <p>A suite that always passes tells you nothing. So I broke the code on purpose nine different ways: cooldown from 15 to 5 minutes, max pop-ups from 6 to 7, an off-by-one on the skip limit, and a few more. The checks caught all nine.</p>
+
+  <h2>Where this falls short</h2>
+
+  <p>The harness fakes Chrome, so it proves my logic is right, not that Chrome behaves the same way. I run twelve manual checks in a real browser for the things a script can't see: fullscreen video, screen share, whether the pop-up pulls you out of another app. And passing every test only means Momo follows my rules. Whether anyone likes it needs real skip and completion data, which I don't have yet.</p>
+
+  <h2>If I add AI</h2>
+
+  <p>Today, six hand-written greetings beat a model on cost, speed and predictability, so I haven't added one. If that changes, these checks are the bar it has to clear, along with a judge I've validated against my own labels. One check already shows 16% of pop-ups repeat the previous greeting. That's the first thing I'd fix, with or without a model.</p>
+
+  <p>To run the checks on your own copy, from the extension repo:</p>
+<pre><code>cd momo-evals
+node run-evals.js ..</code></pre>
+  <p><a href="https://github.com/fistz24/Momo_Break_App/tree/master/momo-evals">Code and evals on GitHub</a></p>
+
+</article>
+
+<script>
+(function () {
+  var root = document.querySelector('.momo-case');
+  var areas = [["Trigger rules","T",21],["Snooze","S",6],["Delivery","D",2],["Learning","L",1],["Timer","A",3],["Spec coverage","C",5],["Checklist","K",7],["Greetings","G",3],["Mascot","M",1]];
+  var notes = {
+    T14:["w","18:00: inside or outside work hours? The code says inside."],
+    S01:["f","Snooze came back after 50 min. The spec says 10."],
+    S03:["f","The gentle pop-up appeared at 18:06, after work hours."],
+    S04:["f","The gentle pop-up became a 7th one of the day."],
+    S05:["f","The gentle pop-up appeared after 3 skips."],
+    D02:["w","With no web tab open, it opened google.com on its own."],
+    A03:["f","The daily reset used the UTC date, so it flipped at 7am in Jakarta."],
+    C01:["f","Nothing detects a screen share or a call."],
+    C02:["f","Nothing waits for a pause in typing."],
+    C03:["w","Code treats active as 60s of input. The spec said 2 min."],
+    C05:["w","Pulls Chrome to the front to show the pop-up."],
+    K01:["f","Checklist had 3-4 items. The spec said 4-5."],
+    K02:["f","14% of checklists had neither water nor posture."],
+    G01:["f","16% of pop-ups repeated the previous greeting."],
+    G02:["w","The header said 'feeling better'. The spec said 'feel better'."],
+    G03:["w","The bubble 'Again?' might read as nagging."]
+  };
+  var label = { f: "Failed", w: "Needs a decision", p: "Passed" };
+  var map = root.querySelector('#mc-map'), cap = root.querySelector('#mc-cap'), cur = null;
+  areas.forEach(function (a) {
+    var g = document.createElement('div'); g.className = 'grp';
+    g.innerHTML = '<b>' + a[0] + '</b>';
+    var d = document.createElement('div'); d.className = 'dots';
+    for (var n = 1; n <= a[2]; n++) {
+      var id = a[1] + String(n).padStart(2, '0'), note = notes[id], s = note ? note[0] : 'p';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'dot ' + (s === 'p' ? '' : s);
+      b.setAttribute('aria-label', id + ', ' + label[s] + (note ? ': ' + note[1] : ''));
+      (function (b, id, s, note, area) {
+        function show() {
+          if (cur) cur.classList.remove('on'); cur = b; b.classList.add('on');
+          cap.innerHTML = '<i>' + id + ' · ' + label[s] + '</i> · ' + area + (note ? '. ' + note[1] : '. Behaved as the spec says.');
+        }
+        b.addEventListener('mouseenter', show); b.addEventListener('focus', show); b.addEventListener('click', show);
+      })(b, id, s, note, a[0]);
+      d.appendChild(b);
+    }
+    g.appendChild(d); map.appendChild(g);
+  });
+})();
+</script>
+</body>
+</html>
